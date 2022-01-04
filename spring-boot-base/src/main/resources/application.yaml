@@ -1,0 +1,8 @@
+server:
+  port: 8080
+#spring:
+#  mvc:
+#    static-path-pattern: /static/** #url访问静态资源前缀 影响默认favicon
+#  resources:
+#    static-locations: classpath:/static
+#    add-mappings: false   #禁用所有静态资源规则 静态资源放哪都访问不了
