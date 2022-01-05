@@ -1,8 +1,13 @@
 server:
   port: 8080
-#spring:
-#  mvc:
-#    static-path-pattern: /static/** #url访问静态资源前缀 影响默认favicon
-#  resources:
-#    static-locations: classpath:/static
-#    add-mappings: false   #禁用所有静态资源规则 静态资源放哪都访问不了
+spring:
+  mvc:
+    static-path-pattern: /static/** #url访问静态资源前缀 影响默认favicon
+    hiddenmethod:
+      filter:
+        enabled: true #开启rest风格 默认为false 仅限于表单,其他比如 postman 等无需此filter 因为表单只能写get和post
+  resources:
+    static-locations: classpath:/static
+    add-mappings: false   #禁用所有静态资源规则 静态资源放哪都访问不了
+    cache:
+      period: 11000 # 单位秒 静态资源缓存时间
