@@ -3,6 +3,9 @@ package com.phoenixhell.springbootbase.config;
 import com.phoenixhell.springbootbase.bean.Person;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.util.UrlPathHelper;
 
 
 /**
@@ -27,12 +30,22 @@ import org.springframework.context.annotation.Configuration;
  * 如果组件之间是相互依赖的(一个对象的属性中有另外一个对象) proxyBeanMethods设置成true
  *
  */
-@Configuration(proxyBeanMethods = true)
-public class MyConfig {
+@Configuration(proxyBeanMethods = false)
+public class MyWebConfig implements WebMvcConfigurer {
 
     //自定义组件名
     @Bean(value = "customName")
     public Person person(){
         return  new Person("loser",18);
+    }
+
+    //spring WebMvcConfigurer 有多个实现 我们写的这个实现会先到这里找实现方法
+    //没有就会找其他实现类 WebMvcAutoConfigurationAdapter implements WebMvcConfigurer
+    //总之就是根据文档implements WebMvcConfigurer 覆写我们想要改变的方法就行
+    @Override
+    public void configurePathMatch(PathMatchConfigurer configurer) {
+        UrlPathHelper urlPathHelper = new UrlPathHelper();
+        urlPathHelper.setRemoveSemicolonContent(false);
+        configurer.setUrlPathHelper(urlPathHelper);
     }
 }

@@ -2,12 +2,16 @@ package com.phoenixhell.springbootbase.controller;
 
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Map;
 
 /**
  * @author phoenixhell
@@ -34,5 +38,18 @@ public class IndexController {
         System.out.println("String====>"+redirectAttributes);
         System.out.println("httpServletRequest====>"+httpServletRequest.getAttribute("msg"));
         return "requestAttributes";
+    }
+
+    //============================复杂参数=====================================
+
+    //http://localhost:8080/modelAndMap?name=shadow&age=18
+    //所有添加进去的值都放入request作用域 传递下去直到render页面 传入request和response
+    @GetMapping("/modelAndMap")
+    public String model(Map<String,Object> map, Model model, HttpServletResponse response){
+        map.put("name","shadow");
+        model.addAttribute("age",20);
+        Cookie cookie = new Cookie("cookie_name","cookie_value");;
+        response.addCookie(cookie);
+        return "modelAndMap";
     }
 }

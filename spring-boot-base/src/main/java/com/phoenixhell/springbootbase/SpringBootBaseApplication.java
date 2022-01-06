@@ -1,7 +1,7 @@
 package com.phoenixhell.springbootbase;
 
 import com.phoenixhell.springbootbase.bean.Person;
-import com.phoenixhell.springbootbase.config.MyConfig;
+import com.phoenixhell.springbootbase.config.MyWebConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -23,7 +23,7 @@ public class SpringBootBaseApplication {
            proxyBeanMethods = true 的情况下 获取的实例都是同一个
            proxyBeanMethods = false 的情况下 获取的实例都不一样
         */
-        MyConfig myConfig = applicationContext.getBean(MyConfig.class);
+        MyWebConfig myConfig = applicationContext.getBean(MyWebConfig.class);
         Person person1 = myConfig.person();
         Person person2 = myConfig.person();
         System.out.println(myConfig);
