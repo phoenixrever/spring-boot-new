@@ -95,4 +95,11 @@ public class ParamController {
         return map;
     }
 
+    //============================自定义convertor=====================================
+    //http://localhost:8080/convertor?name=shadow&age=33&pet=dog,3
+    @GetMapping("/convertor")
+    public Person convertor(Person person){
+        return person;
+    }
+
 }

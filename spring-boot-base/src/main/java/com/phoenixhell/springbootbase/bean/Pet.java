@@ -1,26 +1,16 @@
 package com.phoenixhell.springbootbase.bean;
 
-public class Person {
+
+public class Pet {
     private String name;
     private Integer age;
-    private Pet pet;
 
-
-    public Person() {
+    public Pet() {
     }
 
-    public Person(String name, Integer age, Pet pet) {
+    public Pet(String name, Integer age) {
         this.name = name;
         this.age = age;
-        this.pet = pet;
-    }
-
-    public Pet getPet() {
-        return pet;
-    }
-
-    public void setPet(Pet pet) {
-        this.pet = pet;
     }
 
     public String getName() {
