@@ -4,6 +4,7 @@ import ch.qos.logback.classic.pattern.MessageConverter;
 import com.phoenixhell.springbootbase.bean.Person;
 import com.phoenixhell.springbootbase.bean.Pet;
 import com.phoenixhell.springbootbase.converter.CustomMessageConverter;
+import com.phoenixhell.springbootbase.interceptor.LoginInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
@@ -18,6 +19,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.accept.HeaderContentNegotiationStrategy;
 import org.springframework.web.accept.ParameterContentNegotiationStrategy;
 import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.util.UrlPathHelper;
@@ -113,5 +115,14 @@ public class MyWebConfig implements WebMvcConfigurer {
         //补: 设置基于请求头的策略
         HeaderContentNegotiationStrategy headerStrategy = new HeaderContentNegotiationStrategy();
         configurer.strategies(Arrays.asList(parameterStrategy,headerStrategy));
+    }
+
+    //注册拦截器
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new LoginInterceptor())
+                .addPathPatterns("/**").excludePathPatterns("/","/login.html","/login","/static/**","/error");
+
     }
 }
