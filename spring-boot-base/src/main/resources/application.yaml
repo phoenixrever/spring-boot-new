@@ -13,3 +13,7 @@ spring:
     add-mappings: false   # false 禁用所有静态资源规则 静态资源放哪都访问不了
     cache:
       period: 11000 # 单位秒 静态资源缓存时间
+  servlet:
+    multipart:
+      max-file-size: 10MB  #文件上传最大限制
+      max-request-size: 100MB #所有文件加起来的容量
