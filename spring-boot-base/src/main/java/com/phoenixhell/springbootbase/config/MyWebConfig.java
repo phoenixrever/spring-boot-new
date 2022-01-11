@@ -1,32 +1,24 @@
 package com.phoenixhell.springbootbase.config;
 
-import ch.qos.logback.classic.pattern.MessageConverter;
 import com.phoenixhell.springbootbase.bean.Person;
 import com.phoenixhell.springbootbase.bean.Pet;
 import com.phoenixhell.springbootbase.converter.CustomMessageConverter;
 import com.phoenixhell.springbootbase.interceptor.LoginInterceptor;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.format.FormatterRegistry;
-import org.springframework.http.HttpInputMessage;
-import org.springframework.http.HttpOutputMessage;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.HttpMessageNotReadableException;
-import org.springframework.http.converter.HttpMessageNotWritableException;
 import org.springframework.util.StringUtils;
 import org.springframework.web.accept.HeaderContentNegotiationStrategy;
 import org.springframework.web.accept.ParameterContentNegotiationStrategy;
-import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.util.UrlPathHelper;
 
-import java.io.IOException;
+import javax.sql.DataSource;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -61,6 +53,14 @@ public class MyWebConfig implements WebMvcConfigurer {
         return new Person("loser", 18, null);
     }
 
+    //配置druid 数据源
+    /* @ConfigurationProperties("spring.datasource")
+    @Bean
+    public DataSource dataSource(){
+        DruidDaraSource.setFilter("stat") 开启sql监控
+        return new DruidDaraSource();
+    }*/
+
     //spring WebMvcConfigurer 有多个实现 我们写的这个实现会先到这里找实现方法
     //没有就会找其他实现类 WebMvcAutoConfigurationAdapter implements WebMvcConfigurer
     //总之就是根据文档implements WebMvcConfigurer 覆写我们想要改变的方法就行
@@ -90,12 +90,20 @@ public class MyWebConfig implements WebMvcConfigurer {
     /**
      * configureMessageConverters 会覆盖默认的converter
      * 返回自定义format application/x-custom   x 代表扩展
+     *
      * @param converters
      */
     @Override
     public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
         converters.add(new CustomMessageConverter());
     }
+
+    //自定义静态资源行为
+   /* @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/static/**")
+                .addResourceLocations("classpath:/static");
+    }*/
 
     /**
      * 自定义参数形式 ?format = "x-custom"   直接发送基于请求头header的 application/x-custom 不需要设置这个
@@ -108,13 +116,13 @@ public class MyWebConfig implements WebMvcConfigurer {
         MediaType json = MediaType.APPLICATION_JSON;
         MediaType custom = MediaType.parseMediaType("application/x-custom");
         HashMap<String, MediaType> mediaMap = new HashMap<>();
-        mediaMap.put("xml",xml);
-        mediaMap.put("json",json);
-        mediaMap.put("custom",custom);
-        ParameterContentNegotiationStrategy  parameterStrategy = new ParameterContentNegotiationStrategy(mediaMap);
+        mediaMap.put("xml", xml);
+        mediaMap.put("json", json);
+        mediaMap.put("custom", custom);
+        ParameterContentNegotiationStrategy parameterStrategy = new ParameterContentNegotiationStrategy(mediaMap);
         //补: 设置基于请求头的策略
         HeaderContentNegotiationStrategy headerStrategy = new HeaderContentNegotiationStrategy();
-        configurer.strategies(Arrays.asList(parameterStrategy,headerStrategy));
+        configurer.strategies(Arrays.asList(parameterStrategy, headerStrategy));
     }
 
     //注册拦截器
@@ -122,7 +130,7 @@ public class MyWebConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new LoginInterceptor())
-                .addPathPatterns("/**").excludePathPatterns("/","/login.html","/login","/static/**","/error");
+                .addPathPatterns("/**").excludePathPatterns("/", "/login.html", "/login", "/static/**", "/error");
 
     }
 }
