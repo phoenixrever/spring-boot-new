@@ -8,8 +8,14 @@ spring:
         enabled: true #开启rest风格 默认为false 仅限于表单,其他比如 postman 等无需此filter 因为表单只能写get和post
     contentnegotiation:
       favor-parameter: true #开启请求参数内容协商模式 设置accept json 还是xml ?format=xml
+    servlet:
+      path: /  #可以改变 dispatchServlet的默认拦截路径
   resources:
     static-locations: classpath:/static
     add-mappings: false   # false 禁用所有静态资源规则 静态资源放哪都访问不了
     cache:
       period: 11000 # 单位秒 静态资源缓存时间
+  servlet:
+    multipart:
+      max-file-size: 10MB  #文件上传最大限制
+      max-request-size: 100MB #所有文件加起来的容量

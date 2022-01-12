@@ -4,8 +4,13 @@ import com.phoenixhell.springbootbase.bean.Person;
 import com.phoenixhell.springbootbase.config.MyWebConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.ConfigurableApplicationContext;
 
+/**
+ * ServletComponentScan   扫描自定义webServlet
+ */
+@ServletComponentScan(basePackages = "com.phoenixhell.springbootbase.servlet")
 @SpringBootApplication(scanBasePackages = "com.phoenixhell.springbootbase")
 public class SpringBootBaseApplication {
 

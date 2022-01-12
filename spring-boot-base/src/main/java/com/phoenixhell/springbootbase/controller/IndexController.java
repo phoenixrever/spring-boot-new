@@ -2,6 +2,7 @@ package com.phoenixhell.springbootbase.controller;
 
 import com.phoenixhell.springbootbase.bean.LoginUser;
 import com.phoenixhell.springbootbase.bean.Person;
+import com.phoenixhell.springbootbase.exception.UserTooManyException;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,7 +43,11 @@ public class IndexController {
     //template 视图支持需要thymeleaf 支持
     @GetMapping("/index")
     public String index(){
-        return "index";
+        //模拟arithmetic 异常
+       // int a=1/0;
+        //自定义异常
+        throw new UserTooManyException();
+//        return "index";
     }
 
     //RedirectAttributes
@@ -72,4 +77,5 @@ public class IndexController {
         response.addCookie(cookie);
         return "modelAndMap";
     }
+
 }
