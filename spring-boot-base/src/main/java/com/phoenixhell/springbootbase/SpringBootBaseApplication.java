@@ -14,9 +14,9 @@ public class SpringBootBaseApplication {
         ConfigurableApplicationContext applicationContext = SpringApplication.run(SpringBootBaseApplication.class, args);
 
         String[] names = applicationContext.getBeanDefinitionNames();
-        for (String name : names) {
-            System.out.println(name);
-        }
+        //for (String name : names) {
+        //    System.out.println(name);
+        //}
 
         /*
            MyConfig$$EnhancerBySpringCGLIB  spring增加了的代理对象
@@ -26,8 +26,8 @@ public class SpringBootBaseApplication {
         MyWebConfig myConfig = applicationContext.getBean(MyWebConfig.class);
         Person person1 = myConfig.person();
         Person person2 = myConfig.person();
-        System.out.println(myConfig);
-        System.out.println(person1==person2);
+        //System.out.println(myConfig);
+        //System.out.println(person1==person2);
 
     }
 }
