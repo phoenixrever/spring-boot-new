@@ -3,6 +3,9 @@ package com.phoenixhell.springbootbase.controller;
 import com.phoenixhell.springbootbase.bean.LoginUser;
 import com.phoenixhell.springbootbase.bean.Person;
 import com.phoenixhell.springbootbase.exception.UserTooManyException;
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.MeterRegistry;
+import io.micrometer.core.instrument.Metrics;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,6 +28,13 @@ import java.util.Map;
  */
 @Controller
 public class IndexController {
+    Counter counter;
+
+    //只有一个有参会自动从容器中注入参数
+    public IndexController(MeterRegistry meterRegistry) {
+        counter = meterRegistry.counter("index.count");
+    }
+
     @GetMapping({"/","/login.html"})
     public String loginPage(){
         return "login";
@@ -46,8 +56,11 @@ public class IndexController {
         //模拟arithmetic 异常
        // int a=1/0;
         //自定义异常
-        throw new UserTooManyException();
-//        return "index";
+        //throw new UserTooManyException();
+
+        //metrics 查看到底被调用多少次
+        counter.increment();
+        return "index";
     }
 
     //RedirectAttributes

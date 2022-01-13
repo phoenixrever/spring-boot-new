@@ -29,3 +29,9 @@ management:
   endpoint:                      # 显示端点详细信息
     health:
       show-details: always
+#/actuator/info
+info:
+  app_name: spring boot new
+  version: 1.0
+  mavenProjectName: @project.artifactId@  #使用@ @可以获取maven的pom文件值
+  mavenProjectVersion: @project.version@

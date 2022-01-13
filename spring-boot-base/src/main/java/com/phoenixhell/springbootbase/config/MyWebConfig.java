@@ -4,6 +4,8 @@ import com.phoenixhell.springbootbase.bean.Person;
 import com.phoenixhell.springbootbase.bean.Pet;
 import com.phoenixhell.springbootbase.converter.CustomMessageConverter;
 import com.phoenixhell.springbootbase.interceptor.LoginInterceptor;
+import io.micrometer.core.instrument.Gauge;
+import io.micrometer.core.instrument.binder.MeterBinder;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,6 +23,7 @@ import javax.sql.DataSource;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Queue;
 
 
 /**
