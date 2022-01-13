@@ -19,3 +19,13 @@ spring:
     multipart:
       max-file-size: 10MB  #文件上传最大限制
       max-request-size: 100MB #所有文件加起来的容量
+
+management:
+  endpoints:
+    enabled-by-default: true   # 默认true  开启所有监控端点
+    web:
+      exposure:
+        include: '*'             # web发方式暴露  jmx jConsole方式暴露
+  endpoint:                      # 显示端点详细信息
+    health:
+      show-details: always

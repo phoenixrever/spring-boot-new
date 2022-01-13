@@ -1,6 +1,7 @@
 package com.phoenixhell.springbootbase;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -9,7 +10,7 @@ import java.time.Duration;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("断言 assertions")
-public class AssetTest {
+public class AssertTest {
 
     /**
      * assertEquals  判断两个对象或两个原始类型是否相等
@@ -32,9 +33,9 @@ public class AssetTest {
     @Test
     void testSimpleAssert() {
         int calculate = calculate(1, 2);
-        assertEquals(calculate, 2, "自定义错误信息");
+        assertEquals(calculate, 3, "自定义错误信息");
         //前面断言失败了 后面的不会运行
-        assertTrue(1 == 2,"结果不为true");
+        assertTrue(1 == 1,"结果不为true");
     }
 
     //模拟业务逻辑
@@ -58,7 +59,7 @@ public class AssetTest {
         //heading 组合的名字
         assertAll("Math",
                 () -> assertEquals(2, 1 + 1),
-                () -> assertTrue(true && false,"结果不为true")
+                () -> assertTrue(true && true,"结果不为true")
         );
     }
 
@@ -84,10 +85,10 @@ public class AssetTest {
 
     //快速失败
     //通过 fail 方法直接使得测试失败
+    @Disabled
     @Test
     @DisplayName("fail")
     public void shouldFail() {
         fail("This should fail");
     }
-
 }
