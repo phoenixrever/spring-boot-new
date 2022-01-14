@@ -40,7 +40,7 @@ public class SpringBootBaseApplication {
 
         ConfigurableEnvironment environment = applicationContext.getEnvironment();
         Map<String, Object> systemEnvironment = environment.getSystemEnvironment();
-        systemEnvironment.forEach((key, value) -> System.out.println(key + ":" + value));
+        //systemEnvironment.forEach((key, value) -> System.out.println(key + ":" + value));
 
     }
 }
