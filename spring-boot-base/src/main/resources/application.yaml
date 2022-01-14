@@ -1,6 +1,12 @@
+#debug=true #显示开启了哪些配置类
 server:
   port: 8080
 spring:
+  profiles:
+    include: prod,test
+  banner:
+    image:
+      location: banner.txt
   mvc:
     static-path-pattern: /static/** #url访问静态资源前缀 影响默认favicon
     hiddenmethod:
@@ -19,7 +25,6 @@ spring:
     multipart:
       max-file-size: 10MB  #文件上传最大限制
       max-request-size: 100MB #所有文件加起来的容量
-
 management:
   endpoints:
     enabled-by-default: true   # 默认true  开启所有监控端点
@@ -35,3 +40,9 @@ info:
   version: 1.0
   mavenProjectName: @project.artifactId@  #使用@ @可以获取maven的pom文件值
   mavenProjectVersion: @project.version@
+
+# 自定义customservice starter
+custom:
+  hello:
+    prefix: hello
+    suffix: ----end

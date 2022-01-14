@@ -1,11 +1,15 @@
 package com.phoenixhell.springbootbase.controller;
 
+import com.phoenixhell.springbootbase.bean.GirlFriend;
 import com.phoenixhell.springbootbase.bean.LoginUser;
 import com.phoenixhell.springbootbase.bean.Person;
+import com.phoenixhell.springbootbase.bean.Women;
 import com.phoenixhell.springbootbase.exception.UserTooManyException;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Metrics;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -50,9 +54,23 @@ public class IndexController {
         return "redirect:login.html";
     }
 
+    //==========================profile===============================
+    @Value("${myInfo.name:shadowsilent}")
+    private String name;
+
+    @Value("${myInfo.age:18}")
+    private String age;
+
+    @Autowired
+    private Women women;
     //template 视图支持需要thymeleaf 支持
+
+    //spring boot 可以直接取到环境变量的值
+    @Value("${JAVA_HOME}")
+    private String javaHome;
+
     @GetMapping("/index")
-    public String index(){
+    public String index(Model model){
         //模拟arithmetic 异常
        // int a=1/0;
         //自定义异常
@@ -60,6 +78,10 @@ public class IndexController {
 
         //metrics 查看到底被调用多少次
         counter.increment();
+        model.addAttribute("name",name);
+        model.addAttribute("age",age);
+        model.addAttribute("women",women);
+        model.addAttribute("javaHome",javaHome);
         return "index";
     }
 

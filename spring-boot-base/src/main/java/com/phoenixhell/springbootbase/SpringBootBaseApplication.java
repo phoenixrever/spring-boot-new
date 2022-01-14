@@ -2,10 +2,14 @@ package com.phoenixhell.springbootbase;
 
 import com.phoenixhell.springbootbase.bean.Person;
 import com.phoenixhell.springbootbase.config.MyWebConfig;
+import org.omg.CORBA.Environment;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.core.env.ConfigurableEnvironment;
+
+import java.util.Map;
 
 /**
  * ServletComponentScan   扫描自定义webServlet
@@ -33,6 +37,10 @@ public class SpringBootBaseApplication {
         Person person2 = myConfig.person();
         //System.out.println(myConfig);
         //System.out.println(person1==person2);
+
+        ConfigurableEnvironment environment = applicationContext.getEnvironment();
+        Map<String, Object> systemEnvironment = environment.getSystemEnvironment();
+        systemEnvironment.forEach((key, value) -> System.out.println(key + ":" + value));
 
     }
 }
