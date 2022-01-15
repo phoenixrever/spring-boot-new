@@ -2,6 +2,7 @@ package com.phoenixhell.annotation;
 
 import com.phoenixhell.annotation.entity.UserEntity;
 import com.phoenixhell.annotation.filter.MyTypeFilter;
+import com.phoenixhell.annotation.service.AutowiredService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.SpringBootConfiguration;
@@ -31,13 +32,16 @@ public class SpringAnnotationApplication {
 
         //工厂bean获取的是调用其getObject 方法返回的对象
         //使用的时候才会注册容器相当于懒加载
-        //Object colorFactoryBean = run.getBean("colorFactoryBean");
-        //System.out.println("colorFactoryBean======>"+colorFactoryBean.getClass());
-
-        // & 获取工厂bean 本身
-        Object colorFactoryBean = run.getBean("&colorFactoryBean");
+        Object colorFactoryBean = run.getBean("colorFactoryBean");
         System.out.println("colorFactoryBean======>"+colorFactoryBean.getClass());
 
-        run.close();
+        // & 获取工厂bean 本身
+        //Object colorFactoryBean = run.getBean("&colorFactoryBean");
+        //System.out.println("colorFactoryBean======>"+colorFactoryBean.getClass());
+
+        //获取autowired
+        AutowiredService bean = run.getBean(AutowiredService.class);
+        System.out.println(bean);
+        //run.close();
     }
 }

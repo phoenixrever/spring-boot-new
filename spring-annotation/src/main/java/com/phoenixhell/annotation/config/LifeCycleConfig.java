@@ -4,6 +4,7 @@ import com.phoenixhell.annotation.lifecycle.LifeCycleBean;
 import com.phoenixhell.annotation.lifecycle.LifeCycleInitializingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 
 /**
  * bean的生命周期：
