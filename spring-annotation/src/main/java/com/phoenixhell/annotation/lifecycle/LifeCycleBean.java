@@ -4,13 +4,8 @@ import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
-/**
- * 继承ApplicationContextAware 通过BeanPostProcessor 就能拿到IOC容器
- * 后面详细研究
- */
 
-public class LifeCycleBean implements ApplicationContextAware {
-    private ApplicationContext applicationContext;
+public class LifeCycleBean {
 
     public LifeCycleBean() {
         System.out.println("============LifeCircleBean created=============");
@@ -21,10 +16,5 @@ public class LifeCycleBean implements ApplicationContextAware {
 
     public void destroy(){
         System.out.println("============LifeCircleBean destroy=============");
-    }
-
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        this.applicationContext=applicationContext;
     }
 }

@@ -3,6 +3,7 @@ package com.phoenixhell.annotation;
 import com.phoenixhell.annotation.entity.UserEntity;
 import com.phoenixhell.annotation.filter.MyTypeFilter;
 import com.phoenixhell.annotation.service.AutowiredService;
+import com.phoenixhell.annotation.service.ResourceService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.SpringBootConfiguration;
@@ -40,8 +41,10 @@ public class SpringAnnotationApplication {
         //System.out.println("colorFactoryBean======>"+colorFactoryBean.getClass());
 
         //获取autowired
-        AutowiredService bean = run.getBean(AutowiredService.class);
-        System.out.println(bean);
+        AutowiredService autowiredService = run.getBean(AutowiredService.class);
+        ResourceService resourceService = run.getBean(ResourceService.class);
+        System.out.println(autowiredService);
+        System.out.println(resourceService);
         //run.close();
     }
 }
