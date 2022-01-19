@@ -2,7 +2,6 @@ package com.phoenixhell.annotation.aop;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
@@ -51,50 +50,41 @@ public class LogAspect {
     }
 
 
+    /**
+     * @param joinPoint 拿到被代理类的各项信息 (方法名字,参数等)
+     */
     @Before("pointCut()")
     public void  logStart(JoinPoint joinPoint){
-        System.out.println("除法开始 参数列表是");
-    }
+        //方法名字 div
+        String name = joinPoint.getSignature().getName();
+        //参数列表
+        Object[] args = joinPoint.getArgs();
 
-    @After(value = "pointCut()")
-    public void logend(JoinPoint joinPoint){
-        System.out.println("除法结束 参数列表是:");
-
-    }
-
-    @AfterReturning(value = "pointCut()")
-    public void logReturn(){
-        System.out.println("正常返回  结果是");
+        System.out.println("方法名字:"+name+"  除法开始@Before 参数列表是: "+Arrays.asList(args));
     }
 
     /**
-     * 目标方法 MathCalculator div() 运行之前执行
-     * JoinPoint 一定要在参数表的第一位
+     * @param joinPoint 拿到被代理类的各项信息 (方法名字,参数等)
+     *                  且必须作为第一个参数
+     * @param result 封装返回值
      */
-    /*@Before(value = "point()")
-    public void  logStart(JoinPoint joinPoint){
-        Object[] args = joinPoint.getArgs();
+    @AfterReturning(value = "pointCut()",returning ="result" )
+    public void logReturn(JoinPoint joinPoint,Object result){
         String name = joinPoint.getSignature().getName();
-        System.out.println("除法"+name+"开始 参数列表是"+ Arrays.asList(args));
+        System.out.println("方法名:"+name+"除法正常返回@AfterReturning  结果是: "+result);
     }
 
-    @AfterReturning(value = "point()",returning ="result")
-    public void logReturn(Object result){
-        System.out.println("返回 结果是"+result);
-    }
-
-    @After(value = "point()")
-    public void logend(JoinPoint joinPoint){
-        Object[] args = joinPoint.getArgs();
-        String name = joinPoint.getSignature().getName();
-        System.out.println("除法"+name+"结束 参数列表是:"+ Arrays.asList(args));
+    @After(value = "pointCut()")
+    public void logEnd(JoinPoint joinPoint){
+        System.out.println("除法@After"+joinPoint.getSignature().getName()+"最终结束");
 
     }
-    @AfterThrowing(value = "point()",throwing = "exception")
-    public void logException(JoinPoint joinPoint,Exception exception){
-        Object[] args = joinPoint.getArgs();
-        String name = joinPoint.getSignature().getName();
-        System.out.print("除法"+name+"异常 参数列表是P:"+ Arrays.asList(args)+" ");
-        System.out.println("异常报告:"+exception);
-    }*/
+
+    /**
+     * @param exception  封装返回异常
+     */
+    @AfterThrowing(value = "pointCut()",throwing = "exception")
+    public void logException(Exception exception){
+        System.out.println("除法抛出异常:"+exception);
+    }
 }

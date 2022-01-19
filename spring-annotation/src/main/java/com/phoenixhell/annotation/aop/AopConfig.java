@@ -4,7 +4,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 /**
- *  spring 自动配置你导入了aop 启动场景自动@EnableAspectJAutoProxy
+ * 你导入了aop启动场景 spring 自动配置@EnableAspectJAutoProxy
  */
 
 //@EnableAspectJAutoProxy

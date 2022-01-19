@@ -13,6 +13,7 @@ class SpringAnnotationApplicationTests {
 
     @Test
     void contextLoads() {
+
         calculator.div(1,1);
     }
 }
