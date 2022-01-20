@@ -46,6 +46,8 @@ import java.util.Queue;
  * lite 模式每次创造对象不会检查容器中是否已经存在 速度会加快
  * <p>
  * 如果组件之间是相互依赖的(一个对象的属性中有另外一个对象) proxyBeanMethods设置成true
+ *
+ * 另外 spring 对@Configuration 有特殊处理 里面直接调用方法不会运行方法而是从容器中找这个组件
  */
 @Configuration(proxyBeanMethods = false)
 public class MyWebConfig implements WebMvcConfigurer {
