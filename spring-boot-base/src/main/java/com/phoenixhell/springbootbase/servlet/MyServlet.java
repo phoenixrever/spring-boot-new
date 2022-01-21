@@ -1,9 +1,6 @@
 package com.phoenixhell.springbootbase.servlet;
 
-import org.springframework.boot.web.servlet.ServletComponentScan;
-
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebListener;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +9,7 @@ import java.io.IOException;
 
 /**
  * 自定义servlet
+ * 多个Servlet都能处理到同一层路径，精确优选原则
  * @since @WebServlet 3.0
  */
 
