@@ -6,6 +6,7 @@ import org.springframework.beans.factory.support.*;
 import org.springframework.stereotype.Component;
 
 /**
+ * All bean definitions will have been loaded, but no beans will have been instantiated yet
  * 在所有bean定义信息将要被加载，bean实例还未创建的； 在BeanFactoryPostProcessor之前
  */
 

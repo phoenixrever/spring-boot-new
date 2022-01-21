@@ -33,7 +33,7 @@ public class SpringAnnotationApplication {
 //        System.out.println(userEntity1==userEntity2);
 
         //工厂bean获取的是调用其getObject 方法返回的对象
-        //使用的时候才会注册容器相当于懒加载
+        //工厂Bean 使用的时候才会实例化容器相当于懒加载
         Object colorFactoryBean = run.getBean("colorFactoryBean");
 //        System.out.println("colorFactoryBean======>"+colorFactoryBean.getClass());
 
@@ -51,6 +51,9 @@ public class SpringAnnotationApplication {
         run.publishEvent(new ApplicationEvent(new String("发布自定义事件")) {
         });
 
+        //测试给BeanFactory中注册一些能用的组件 时候的类型(autowired时候需要)
+        Object environment = run.getBean("environment");
+        System.out.println("environment"+environment);
 
         //run.close();
     }
