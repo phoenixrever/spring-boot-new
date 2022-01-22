@@ -1,6 +1,6 @@
 #debug=true #显示开启了哪些配置类
 server:
-  port: 8080
+  port: 8999
 spring:
   profiles:
     include: prod,test

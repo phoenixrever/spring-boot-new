@@ -2,6 +2,7 @@ package com.phoenixhell.springbootbase;
 
 import com.phoenixhell.springbootbase.bean.Person;
 import com.phoenixhell.springbootbase.config.MyWebConfig;
+import com.phoenixhell.springbootbase.servlet.MyServlet;
 import org.omg.CORBA.Environment;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -12,7 +13,9 @@ import org.springframework.core.env.ConfigurableEnvironment;
 import java.util.Map;
 
 /**
+ * 重要
  * ServletComponentScan   扫描自定义webServlet
+ * 必须要防在main里面
  */
 @ServletComponentScan(basePackages = "com.phoenixhell.springbootbase.servlet")
 @SpringBootApplication(scanBasePackages = "com.phoenixhell.springbootbase")
