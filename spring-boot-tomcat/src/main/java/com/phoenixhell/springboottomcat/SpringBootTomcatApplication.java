@@ -43,12 +43,20 @@ public class SpringBootTomcatApplication {
         //自定义classloader 被AppClassLoader 加载
         ClassLoader parent = MyClassLoader.getSystemClassLoader();
         System.out.println("myClassLoader 由"+parent+"加载");
-        MyClassLoader myClassLoader = new MyClassLoader(parent);
-        Class<?> aClass = myClassLoader.loadClass("com.phoenixhell.springboottomcat.jvm.MyClassloaded");
+
+        //注意2个不同的类加载器
+        MyClassLoader myClassLoader1 = new MyClassLoader(parent);
+        MyClassLoader myClassLoader2 = new MyClassLoader(parent);
+        Class<?> aClass1 = myClassLoader1.loadClass("com.phoenixhell.springboottomcat.jvm.MyClassloaded");
+        Class<?> aClass2 = myClassLoader2.loadClass("com.phoenixhell.springboottomcat.jvm.MyClassloaded");
 
         //MyClassLoader 的加载类是 AppClassLoader
         //双亲委派机制下 AppClassLoader 已经可以加载到类了 直接由他加载
-        System.out.println("MyClassloaded 的加载类: "+aClass.getClassLoader());
+        //自定义MyClassLoader 后 加载器为 MyClassLoader@78b236a0
+        System.out.println("MyClassloaded 的加载类: "+aClass1.getClassLoader());
+
+        //false  类加载器的实例和这个类名 在 JVM 确定唯一性 类加载器不同 生成的类也不同
+        System.out.println(aClass1==aClass2);
 
     }
 

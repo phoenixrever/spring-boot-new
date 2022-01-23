@@ -1,5 +1,10 @@
 package com.phoenixhell.springboottomcat.jvm;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 /**
  * 自定义classloader
  */
@@ -9,31 +14,39 @@ public class MyClassLoader extends ClassLoader {
         super(parent);
     }
 
+    @Override
+    protected Class<?> findClass(String name)  {
+        //通常这里是指定一个文件夹 然后根据name找出对应的文件 这里图方便直接指定文件
+        Path path = Paths.get("N:\\Git\\spring-boot-new\\spring-boot-tomcat\\target\\classes\\com\\phoenixhell\\springboottomcat\\jvm\\MyClassloaded.class");
+        if(Files.exists(path)){
+            try {
+                byte[] bytes = Files.readAllBytes(path);
+                Class<?> clazz = this.defineClass(name, bytes, 0, bytes.length);
+                return clazz;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
 
     @Override
-    protected Class<?> loadClass(String name, boolean resolve) throws ClassNotFoundException {
-        synchronized (getClassLoadingLock(name)) {
-            // First, check if the class has already been loaded
-            Class<?> c = findLoadedClass(name);
-            if (c == null) {
-                long t0 = System.nanoTime();
-
-                if (c == null) {
-                    // If still not found, then invoke findClass in order
-                    // to find the class.
-                    long t1 = System.nanoTime();
-                    c = findClass(name);
-
-                    // this is the defining class loader; record the stats
-                    sun.misc.PerfCounter.getParentDelegationTime().addTime(t1 - t0);
-                    sun.misc.PerfCounter.getFindClassTime().addElapsedTimeFrom(t1);
-                    sun.misc.PerfCounter.getFindClasses().increment();
-                }
-            }
-            if (resolve) {
-                resolveClass(c);
-            }
-            return c;
+    public Class<?> loadClass(String name) {
+        Class<?> loadedClass = findLoadedClass(name);
+        if(loadedClass!=null){
+            return loadedClass;
         }
+        ClassLoader extClassLoader = getSystemClassLoader().getParent();
+        Class<?> clazz;
+          try {
+            //extClassLoader 是加载不到我们用户classpath下面的class文件的
+            // 这样他就只会加载object 我们自定义的加载器就能加载用户文件
+            //不用appClassLoader 的原因是他也会扫描用户文件 就不用我们的了
+             clazz = extClassLoader.loadClass(name);
+        } catch (ClassNotFoundException e) {
+            System.out.println("extClassLoader 是加载不到我们用户classpath下面的class文件的");
+            clazz = findClass(name);
+        }
+        return clazz;
     }
 }
