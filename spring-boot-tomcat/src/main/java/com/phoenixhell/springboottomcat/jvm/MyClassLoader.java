@@ -17,7 +17,8 @@ public class MyClassLoader extends ClassLoader {
     @Override
     protected Class<?> findClass(String name)  {
         //通常这里是指定一个文件夹 然后根据name找出对应的文件 这里图方便直接指定文件
-        Path path = Paths.get("N:\\Git\\spring-boot-new\\spring-boot-tomcat\\target\\classes\\com\\phoenixhell\\springboottomcat\\jvm\\MyClassloaded.class");
+//        Path path = Paths.get("N:\\Git\\spring-boot-new\\spring-boot-tomcat\\target\\classes\\com\\phoenixhell\\springboottomcat\\jvm\\MyClassloaded.class");
+        Path path = Paths.get("E:\\spring-boot-new\\spring-boot-tomcat\\target\\classes\\com\\phoenixhell\\springboottomcat\\jvm\\MyClassloaded.class");
         if(Files.exists(path)){
             try {
                 byte[] bytes = Files.readAllBytes(path);
